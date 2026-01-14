@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <nav>
+      <a href="{{ url_for('main.dashboard') }}">Dashboard</a> |
+      <a href="{{ url_for('main.checklist') }}">Checklist</a> |
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('auth.logout') }}">Logout</a>
+      {% else %}
+        <a href="{{ url_for('auth.login') }}">Login</a> |
+        <a href="{{ url_for('auth.signup') }}">Sign Up</a>
+      {% endif %}
+    </nav>
+    <h1>Dashboard</h1>
+    <p>Welcome! You're logged in.</p>
+    <p><a href="{{ url_for('auth.logout') }}">Logout</a></p>
+  </body>
+</html>

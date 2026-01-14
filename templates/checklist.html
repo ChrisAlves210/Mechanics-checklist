@@ -55,6 +55,16 @@
     </style>
   </head>
   <body>
+    <nav style="position:fixed;top:8px;left:8px;right:8px;text-align:center;z-index:10">
+      <a href="{{ url_for('main.dashboard') }}" style="color:#e5e7eb">Dashboard</a> |
+      <a href="{{ url_for('main.checklist') }}" style="color:#e5e7eb">Checklist</a> |
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('auth.logout') }}" style="color:#e5e7eb">Logout</a>
+      {% else %}
+        <a href="{{ url_for('auth.login') }}" style="color:#e5e7eb">Login</a> |
+        <a href="{{ url_for('auth.signup') }}" style="color:#e5e7eb">Sign Up</a>
+      {% endif %}
+    </nav>
     <div class="wrapper">
       <div class="card" role="region" aria-label="Mechanics Checklist">
         <div class="card-header">
