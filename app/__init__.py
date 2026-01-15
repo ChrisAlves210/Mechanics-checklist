@@ -3,7 +3,7 @@ from .extensions import db, login_manager
 
 
 def create_app(config: dict = None) -> Flask:
-    app = Flask(__name__, template_folder="../templates")
+    app = Flask(__name__, template_folder="../templates", static_folder="../styles", static_url_path="/styles")
 
     # Base config
     app.config.update(

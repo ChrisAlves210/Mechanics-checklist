@@ -9,7 +9,7 @@ auth = Blueprint('auth', __name__)
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
     if current_user.is_authenticated:
-        return redirect(url_for('main.dashboard'))
+        return redirect(url_for('main.checklist'))
     form = SignupForm()
     if form.validate_on_submit():
         if User.query.filter((User.email == form.email.data) | (User.username == form.username.data)).first():
@@ -26,7 +26,7 @@ def signup():
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('main.dashboard'))
+        return redirect(url_for('main.checklist'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -34,7 +34,7 @@ def login():
             login_user(user)
             flash('Logged in successfully.', 'success')
             next_page = request.args.get('next')
-            return redirect(next_page or url_for('main.dashboard'))
+            return redirect(next_page or url_for('main.checklist'))
         flash('Invalid credentials', 'danger')
     return render_template('login.html', form=form)
 ##logout just to remind you##

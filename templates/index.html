@@ -1,0 +1,15 @@
+{{% extends 'base.html' %}}
+{% block content %}
+<head>
+  ...
+  <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+  <nav>
+    <!-- Navigation content here -->
+  </nav>
+  <h1>Welcome to the Mechanics Checklist App</h1>
+  <p>This application helps mechanics keep track of each part on a vehicle from inspections or rebuilds.</p>
+  <p>Please <a href="{{ url_for('auth.signup') }}">sign up</a> or <a href="{{ url_for('auth.login') }}">log in</a> to access your checklist.</p>
+</body>
+{% endblock %}

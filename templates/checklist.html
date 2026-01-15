@@ -56,7 +56,6 @@
   </head>
   <body>
     <nav style="position:fixed;top:8px;left:8px;right:8px;text-align:center;z-index:10">
-      <a href="{{ url_for('main.dashboard') }}" style="color:#e5e7eb">Dashboard</a> |
       <a href="{{ url_for('main.checklist') }}" style="color:#e5e7eb">Checklist</a> |
       {% if current_user.is_authenticated %}
         <a href="{{ url_for('auth.logout') }}" style="color:#e5e7eb">Logout</a>
