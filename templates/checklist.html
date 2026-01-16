@@ -91,10 +91,29 @@
           </div>
         </div>
       </div>
+
+      <!-- Notes panel below the checklist -->
+      <div class="card" style="margin-top:16px;" aria-label="Notes">
+        <div class="card-header">
+          <div>
+            <h2 style="font-size:16px;margin:0;">Notes</h2>
+            <div class="sub">Paste any extra notes for this job.</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <textarea
+            id="notes"
+            rows="6"
+            style="width:100%;background:#0b1220;color:var(--text);border:1px solid var(--border);border-radius:8px;padding:10px 12px;resize:vertical;"
+          ></textarea>
+          <div class="sub" style="margin-top:8px;">Notes are saved in this browser only.</div>
+        </div>
+      </div>
     </div>
 
     <script>
       const STORAGE_KEY = 'mechanics_checklist_items';
+      const NOTES_KEY = 'mechanics_checklist_notes';
       const listEl = document.getElementById('list');
       const newItemEl = document.getElementById('newItem');
       const addBtn = document.getElementById('addBtn');
@@ -102,6 +121,7 @@
       const emptyEl = document.getElementById('emptyState');
       const clearCompletedBtn = document.getElementById('clearCompletedBtn');
       const filterEls = Array.from(document.querySelectorAll('.filter'));
+      const notesEl = document.getElementById('notes');
 
       let items = [];
       let currentFilter = 'all';
@@ -113,11 +133,24 @@
         } catch (e) {
           items = [];
         }
+
+        // load saved notes, if any
+        if (notesEl) {
+          const savedNotes = localStorage.getItem(NOTES_KEY);
+          if (savedNotes !== null) {
+            notesEl.value = savedNotes;
+          }
+        }
         render();
       }
 
       function persist() {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+      }
+
+      function saveNotes() {
+        if (!notesEl) return;
+        localStorage.setItem(NOTES_KEY, notesEl.value);
       }
 
       function addItem(text) {
@@ -204,6 +237,10 @@
       filterEls.forEach(el => {
         el.addEventListener('click', () => setFilter(el.dataset.filter));
       });
+
+      if (notesEl) {
+        notesEl.addEventListener('input', saveNotes);
+      }
 
 
       load();
